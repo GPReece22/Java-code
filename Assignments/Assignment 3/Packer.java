@@ -3,16 +3,17 @@ import java.util.Arrays;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class Packer {
+public class Packer implements Comparable <Packer> {
     private String name;
     private int packed;
     private double totalWage;
 
 
 
-    public Packer(String name, int packed) {
+    public Packer(String name, int packed, int totalWage) {
         this.name = name;
         this.packed = packed;
+        this.totalWage = totalWage;
     }
 
     public String getName() {
@@ -40,35 +41,24 @@ public class Packer {
             this.totalWage = 1.11 * packed;
         }
         else {
-        this.totalWage = ((packed - 50) * 1.25) + (50 * 1.11);
+            this.totalWage = ((packed - 50) * 1.25) + (50 * 1.11);
         }
     }
 
+
     @Override
     public String toString() {
+        Locale locale = new Locale("en", "GB");
+        NumberFormat cf = NumberFormat.getCurrencyInstance(locale);
         return "Packer{" +
                 "name='" + name + '\'' +
-                ", packed=" + packed +
+                ", packed='" + packed + '\'' +
+                ", wages='" + cf.format(totalWage) + '\'' +
                 '}';
     }
 
-    public static void main(String[] args) {
-        Locale locale = new Locale ("en", "GB");
-        NumberFormat cf = NumberFormat.getCurrencyInstance (locale);
-
-        Packer steve = new Packer("Steve", 127);
-        steve.setTotalWage();
-        Packer gary = new Packer("Gary", 103);
-        gary.setTotalWage();
-        Packer tony = new Packer("Tony", 473);
-        tony.setTotalWage();
-        Packer saad = new Packer("Saad", 129);
-        saad.setTotalWage();
-        Packer rubiya = new Packer("Rubiya", 117);
-        rubiya.setTotalWage();
-
-        System.out.println(steve);
-        System.out.println("Steve's total wages are " + cf.format(steve.getTotalWage()));
+    @Override
+    public int compareTo(Packer packer) {
+        return packer.packed - this.packed;
     }
 }
-
