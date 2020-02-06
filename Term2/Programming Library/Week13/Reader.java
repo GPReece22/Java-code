@@ -1,50 +1,37 @@
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Reader {
 
-    private ArrayList <Integer> temperatures;
-
-    public Reader(ArrayList<Integer> temperatures) {
-        this.temperatures = new ArrayList<>();
-    }
-
-    public ArrayList<Integer> getTemperatures() {
-        return temperatures;
-    }
-
-    public void setTemperatures(ArrayList<Integer> temperatures) {
-        this.temperatures = temperatures;
-    }
-    public void addTemperatures(temperatures newTemp) {
-        this.temperatures.add (newTemp);
-    }
-
-
-
     public static void main (String[] args) {
+        int noOfReadings = 5;
+        ArrayList<Integer> temperatures = new ArrayList<>();
 
-        Scanner in = new Scanner (System.in);
+        Scanner scanner = new Scanner(System.in);
+        String readingIn;
+        int value;
 
-        System.out.print ("Enter the temperature: ");
-        String s = in.nextLine ();
-
-        //for loop in here
-        for (int i = 0; 1 < 5;) {
+        for (int i = 0; i < noOfReadings; i++) {
             try {
-                if (s.endsWith("C")) {
-                    int temp = Integer.parseInt(s.substring(0, s.length() - 1));
-                    temperatures.add(temp);
-                    //System.out.println("temp = " + temp);
-                    ++i;
-                } else {
-                    throw new NumberFormatException();
+                System.out.println("Enter reading " + (i + 1));
+                readingIn = scanner.nextLine();
+                value = Integer.parseInt(readingIn.substring(0, readingIn.length() - 1));
+                temperatures.add(value);
                 }
-            } catch (NumberFormatException e) {
+            catch (NumberFormatException e){
                 System.out.println("Wrong format");
+                i--;
             }
         }
+        int tempsSum = 0;
+        for(int reading : temperatures){
+            tempsSum += reading;
+        }
 
-
+        System.out.println(temperatures.size() + " Readings");
+        System.out.println( "The minimum Temperature is: " + Collections.min(temperatures));
+        System.out.println( "The maximum Temperature is: " + Collections.max(temperatures));
+        System.out.println( "The average Temperature is: " + (tempsSum / temperatures.size()));
     }
 }
