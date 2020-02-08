@@ -1,3 +1,4 @@
+package sample;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +18,7 @@ public class JavaFXMenuDemo extends Application {
     private Menu saveMenu;
 
     private MenuItem factoryPopUpMI;
+    private MenuItem myPopUpMI;
     private MenuItem myDialogMI;
     private MenuItem exitMI;
     private MenuItem aboutMI;
@@ -37,6 +39,7 @@ public class JavaFXMenuDemo extends Application {
         saveMenu = new Menu("Save Results");
 
         factoryPopUpMI = new MenuItem("Factory PopUp...");
+        myPopUpMI = new MenuItem("My Customses...");
         myDialogMI = new MenuItem("Custom Dialog Box");
         exitMI = new MenuItem("Exit");
         aboutMI = new MenuItem("About...");
@@ -44,6 +47,7 @@ public class JavaFXMenuDemo extends Application {
 
         // add menu items to menus and menus to the menu bar
         fileMenu.getItems().add(factoryPopUpMI);
+        fileMenu.getItems().add(myPopUpMI);
         fileMenu.getItems().add(myDialogMI);
         fileMenu.getItems().add(new SeparatorMenuItem());
         fileMenu.getItems().add(exitMI);
@@ -71,6 +75,16 @@ public class JavaFXMenuDemo extends Application {
                 factoryAlert.setContentText("I come in many canned forms");
                 factoryAlert.setHeaderText("Factory Information");
                 factoryAlert.showAndWait();
+            }
+        });
+
+        myPopUpMI.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FactoryDialog dialog = new FactoryDialog();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(primaryStage);
+                dialog.show();
             }
         });
 

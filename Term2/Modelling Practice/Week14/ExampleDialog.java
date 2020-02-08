@@ -1,3 +1,4 @@
+package sample;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -41,7 +42,7 @@ class ExampleDialog extends Stage {
         selectionLabel = new Label("Select Item");
 
         selectionCombo = new ComboBox<>();
-        selectionCombo.getItems().addAll("Apples", "Pears", "Plums", "Grapes", "Bananas");
+        selectionCombo.getItems().addAll("Apples", "Pears", "Plums", "Grapes", "Bananas", fave);
 
         showResultsCheckBox = new CheckBox("Show Selections");
         showResultsCheckBox.setSelected(true);
