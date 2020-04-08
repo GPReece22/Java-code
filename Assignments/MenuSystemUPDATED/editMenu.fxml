@@ -6,24 +6,24 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="494.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Example.EditMenuController">
-   <children>
-      <ListView fx:id="starterList" layoutX="20.0" layoutY="32.0" prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="mainList" layoutX="242.0" layoutY="32.0" prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="dessertList" layoutX="459.0" layoutY="32.0" prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="drinkList" layoutX="26.0" layoutY="273.0" prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="ExtraList" layoutX="242.0" layoutY="273.0" prefHeight="200.0" prefWidth="200.0" />
-      <TextField fx:id="itemNameTF" layoutX="481.0" layoutY="275.0" />
-      <TextField fx:id="itemPriceTF" layoutX="481.0" layoutY="314.0" />
-      <TextField fx:id="itemCalorieTF" layoutX="481.0" layoutY="358.0" />
-      <TextField fx:id="itemDescriptionTF" layoutX="481.0" layoutY="403.0" />
-      <Button fx:id="addButton" layoutX="481.0" layoutY="445.0" mnemonicParsing="false" onAction="#addItem" text="Add" />
-      <Button fx:id="removeButton" layoutX="578.0" layoutY="446.0" mnemonicParsing="false" onAction="#removeItem" text="Remove" />
-      <Label layoutX="106.0" layoutY="15.0" text="Starters" />
-      <Label layoutX="328.0" layoutY="15.0" text="Mains" />
-      <Label layoutX="533.0" layoutY="15.0" text="Desserts" />
-      <Label layoutX="109.0" layoutY="256.0" text="Drinks" />
-      <Label layoutX="326.0" layoutY="256.0" text="Extras" />
-   </children>
+<AnchorPane prefHeight="289.0" prefWidth="545.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Example.EditMenuController">
+    <children>
+        <ListView fx:id="menuItemList" layoutX="109.0" layoutY="21.0" onMouseClicked="#selectItem" prefHeight="200.0" prefWidth="200.0" />
+        <TextField fx:id="itemNameTF" layoutX="349.0" layoutY="25.0" />
+        <TextField fx:id="itemPriceTF" layoutX="349.0" layoutY="64.0" />
+        <TextField fx:id="itemCalorieTF" layoutX="349.0" layoutY="108.0" />
+        <TextField fx:id="itemDescriptionTF" layoutX="349.0" layoutY="153.0" prefHeight="59.0" prefWidth="149.0" />
+        <Button fx:id="addButton" layoutX="349.0" layoutY="221.0" mnemonicParsing="false" onAction="#addItem" text="Add" />
+        <Button fx:id="removeButton" layoutX="445.0" layoutY="221.0" mnemonicParsing="false" onAction="#removeItem" text="Remove" />
+      <Button fx:id="starterButton" layoutX="18.0" layoutY="29.0" mnemonicParsing="false" onAction="#showStarters" text="Starters" />
+      <Button fx:id="mainButton" layoutX="22.0" layoutY="64.0" mnemonicParsing="false" onAction="#showMains" text="Mains" />
+      <Button fx:id="dessertButton" layoutX="18.0" layoutY="95.0" mnemonicParsing="false" onAction="#showDesserts" text="Dessert" />
+      <Button fx:id="drinkButton" layoutX="21.0" layoutY="132.0" mnemonicParsing="false" onAction="#showDrinks" text="Drinks" />
+      <Button fx:id="extraButton" layoutX="22.0" layoutY="165.0" mnemonicParsing="false" onAction="#showExtras" text="Extras" />
+      <Label layoutX="385.0" layoutY="135.0" prefHeight="17.0" prefWidth="67.0" text="Description" />
+      <Label layoutX="408.0" layoutY="5.0" text="Name" />
+      <Label layoutX="403.0" layoutY="86.0" text="Calories" />
+      <Label layoutX="403.0" layoutY="45.0" text="Price" />
+      <Button fx:id="submitChangesButton" layoutX="158.0" layoutY="233.0" mnemonicParsing="false" onAction="#submitChanges" text="Submit Changes" />
+    </children>
 </AnchorPane>

@@ -11,6 +11,7 @@ public class ReceiptController {
     public Label totalLabel;
     public ListView<ItemOnMenu> receiptList;
     public Button payButton;
+
     private static MyMenu finalOrder;
     Locale locale = new Locale("en", "GB");
     NumberFormat cf = NumberFormat.getCurrencyInstance(locale);

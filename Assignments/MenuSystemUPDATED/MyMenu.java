@@ -20,4 +20,25 @@ public class MyMenu extends ObservableListWrapper<ItemOnMenu> {
         }
         return totalPrice;
     }
+
+    public ItemOnMenu findItemByName(String name){
+        ItemOnMenu temp;
+        int indexLocation = -1;
+        for (int i = 0; i < super.size(); i++){
+            temp = super.get(i);
+            if(temp.getMealName().equals(name)){
+                indexLocation = i;
+                break;
+            }
+        }
+        if (indexLocation == -1){
+            return null;
+        }
+        return super.get(indexLocation);
+    }
+
+    public void removeItem(String name){
+        ItemOnMenu itemToGo = this.findItemByName(name);
+        super.remove(itemToGo);
+    }
 }

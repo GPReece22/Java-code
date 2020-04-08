@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Example.ReceiptController">
-   <children>
-      <Label fx:id="totalLabel" layoutX="35.0" layoutY="266.0" text="Total: " />
-      <ListView fx:id="receiptList" layoutX="35.0" layoutY="46.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label layoutX="38.0" layoutY="21.0" text="Your order:" />
-      <Button fx:id="payButton" layoutX="170.0" layoutY="262.0" mnemonicParsing="false" onAction="#pay" text="Pay" />
-   </children>
+    <children>
+        <Label fx:id="totalLabel" layoutX="35.0" layoutY="266.0" text="Total: " />
+        <ListView fx:id="receiptList" layoutX="35.0" layoutY="46.0" prefHeight="200.0" prefWidth="200.0" />
+        <Label layoutX="38.0" layoutY="21.0" text="Your order:" />
+        <Button fx:id="payButton" layoutX="170.0" layoutY="262.0" mnemonicParsing="false" onAction="#pay" text="Pay" />
+    </children>
 </AnchorPane>

@@ -13,11 +13,6 @@ public class MenuController {
     public Button doneButton;
     public Button mealButton;
     public Button extrasButton;
-    public ListView<ItemOnMenu> chosenList;
-    private static MyMenu order;
-    private static int tableNumber;
-    private static int noOfDiners;
-    public Label infoLabel;
     public Button drinksButton;
     public Button starterButton;
     public Button mainButton;
@@ -25,8 +20,19 @@ public class MenuController {
     public Button removeButton;
     public Button addNoteButton;
     public Button cancelOrderButton;
-    public TextField kitchenNoteTF;
     public Button addKitchenNoteButton;
+    public Label infoLabel;
+    public TextField kitchenNoteTF;
+    public ListView<ItemOnMenu> chosenList;
+
+    public static MyMenu tempStarters;
+    public static MyMenu tempMains;
+    public static MyMenu tempDesserts;
+    public static MyMenu tempDrinks;
+    public static MyMenu tempExtras;
+    private static MyMenu order;
+    private static int tableNumber;
+    private static int noOfDiners;
 
     public void setParent(EntryScreenController p) {
         EntryScreenController parent = p;
@@ -58,11 +64,6 @@ public class MenuController {
         }
     }
 
-    public void addMeal(ActionEvent actionEvent) throws IOException {
-        launchMealSelection();
-        MealSelectionController.updateOption(99);
-    }
-
     public void addStarter(ActionEvent actionEvent) throws IOException {
         MealSelectionController.updateOption(1);
         launchMealSelection();
@@ -85,6 +86,11 @@ public class MenuController {
 
     public void addExtras(ActionEvent actionEvent) throws IOException {
         MealSelectionController.updateOption(5);
+        launchMealSelection();
+    }
+
+    public void add3Courses(ActionEvent actionEvent) throws IOException {
+        MealSelectionController.updateOption(6);
         launchMealSelection();
     }
 
@@ -153,11 +159,13 @@ public class MenuController {
         if (!kitchenNoteTF.getText().equals("")) {
             int selectedIndex = chosenList.getSelectionModel().getSelectedIndex();
             ItemOnMenu toAdd = chosenList.getItems().get(selectedIndex);
+            order.remove(toAdd);
             toAdd.setKitchenNote(kitchenNoteTF.getText());
             kitchenNoteTF.setOpacity(0);
             kitchenNoteTF.setDisable(true);
             addKitchenNoteButton.setOpacity(0);
             addKitchenNoteButton.setDisable(true);
+            order.addAll(toAdd);
         }
         else{
             Alert alert = new Alert(Alert.AlertType.WARNING, "Please enter the note you would like to add",

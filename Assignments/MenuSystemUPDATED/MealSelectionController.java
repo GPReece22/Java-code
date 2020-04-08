@@ -6,54 +6,30 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class MealSelectionController {
-    public Label choiceLabel;
-    public ListView<ItemOnMenu> foodListView;
-    public Button addStarterButton;
     public TextField nameTextField;
     public TextField priceTextField;
     public TextField caloriesTextField;
     public TextField descriptionTextField;
+    public TextField kitchenNoteTextField;
+    public Button addStarterButton;
     public Button moreInfoButton;
     public Button backButton;
-    public TextField kitchenNoteTextField;
-    private MyMenu starters;
-    private MyMenu mains;
-    private MyMenu desserts;
-    private MyMenu drinks;
-    private MyMenu extras;
-    public MyMenu chosen;
-    int course = 0;
+    public Label choiceLabel;
+    public ListView<ItemOnMenu> foodListView;
+
+    private static MyMenu starters;
+    private static MyMenu mains;
+    private static MyMenu desserts;
+    private static MyMenu drinks;
+    private static MyMenu extras;
+    private MyMenu chosen;
+    private int course = 3;
     private static int option = 0;
+    private boolean priceReduce = false;
+    private double discountAmount = 1 - DISCOUNT;
+    static final double DISCOUNT = 0.1;
 
     public void initialize() {
-        starters = new MyMenu();
-        starters.addFoodItem("Smoked Salmon", 1.6, 180, "Wild alaskan smoked " +
-                "salmon served on a bed of iceberg lettuce with thousand island dressing", "");
-        starters.addFoodItem("Pate", 2.5, 195, "aaa", "");
-        starters.addFoodItem("Melon", 1., 98, "aaa", "");
-        starters.addFoodItem("Ciabatta", 1.75, 102, "aaaa", "");
-
-        mains = new MyMenu();
-        mains.addFoodItem("Steak and Ale Pie", 7.5, 870, "aaa", "");
-        mains.addFoodItem("Chicken Pie", 7, 780, "aaa", "");
-        mains.addFoodItem("Fish and Chips", 6.5, 880, "aaa", "");
-        mains.addFoodItem("Bangers and Mash", 6.5, 690, "aaa", "");
-        mains.addFoodItem("Steak", 9.5, 680, "aaa", "");
-        mains.addFoodItem("Fajitas", 7.5, 640, "aaa", "");
-
-        desserts = new MyMenu();
-        desserts.addFoodItem("Chocolate Fudge Cake", 1.5, 480, "aaa", "");
-        desserts.addFoodItem("Sticky toffee pudding", 1.5, 560, "aaa", "");
-        desserts.addFoodItem("Mousse", 1.5, 250, "aaa", "");
-
-        drinks = new MyMenu();
-        drinks.addFoodItem("Coke", 1, 100, "aaa", "");
-        drinks.addFoodItem("San Miguel", 2, 260, "aaa", "");
-
-        extras = new MyMenu();
-        extras.addFoodItem("Chips", 1.5, 200, "aaa", "");
-        extras.addFoodItem("Wedges", 1.75, 230, "aaa", "");
-
         chosen = new MyMenu();
 
         if (option == 1){
@@ -76,6 +52,11 @@ public class MealSelectionController {
             foodListView.setItems(extras);
             choiceLabel.setText("Please choose an extra");
         }
+        else if (option ==6){
+            foodListView.setItems(starters);
+            choiceLabel.setText("Please choose a starter");
+            course = 0;
+        }
     }
 
     void setParent(MenuController p) {
@@ -90,8 +71,13 @@ public class MealSelectionController {
     }
 
     public void addFoodItem(ActionEvent actionEvent) {
-        chooseFood();
-        MenuController.updateOrder(chosen);
+        if (option == 6){
+            course++;
+            add3course();
+        }
+        else {
+            chooseFood();
+        }
     }
 
     public void showMoreInfo(ActionEvent actionEvent) {
@@ -112,23 +98,24 @@ public class MealSelectionController {
     }
 
     private void add3course(){
-        foodListView.setItems(starters);
-        chooseFood();
+        priceReduce = true;
         if (course == 1) {
+            chooseFood();
             foodListView.getSelectionModel().clearSelection();
             choiceLabel.setText("Please choose a main course");
             foodListView.setItems(mains);
         }
 
         if (course == 2) {
+            chooseFood();
             foodListView.getSelectionModel().clearSelection();
             choiceLabel.setText("Please choose a dessert course");
             foodListView.setItems(desserts);
         }
 
         if (course == 3) {
+            chooseFood();
             foodListView.getSelectionModel().clearSelection();
-
         }
     }
 
@@ -150,8 +137,15 @@ public class MealSelectionController {
                 double calorificValue = Double.parseDouble(tempCValue);
                 String description = descriptionTextField.getText();
                 String kitchenNote = kitchenNoteTextField.getText();
+                if (priceReduce){
+                    price = price * discountAmount;
+                    kitchenNote = "Discount Applied";
+                }
                 chosen.addFoodItem(name, price, calorificValue, description, kitchenNote);
-                ((Stage) backButton.getScene().getWindow()).close();
+                if (course == 3) {
+                    ((Stage) backButton.getScene().getWindow()).close();
+                    MenuController.updateOrder(chosen);
+                }
             }
         }
     }
@@ -161,7 +155,29 @@ public class MealSelectionController {
     }
 
     public static void getDescription(ItemOnMenu i){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, i.getDescription(), ButtonType.OK);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Label description = new Label(i.getDescription());
+        alert.getDialogPane().setContent(description);
         alert.showAndWait();
+    }
+
+    public static void updateMenus(MyMenu updatedStarters, MyMenu updatedMains, MyMenu updatedDesserts, MyMenu updatedDrinks, MyMenu updatedExtras){
+        starters = updatedStarters;
+        mains = updatedMains;
+        desserts = updatedDesserts;
+        drinks = updatedDrinks;
+        extras = updatedExtras;
+    }
+
+    public static void setMenus(MyMenu Starters, MyMenu Mains, MyMenu Desserts, MyMenu Drinks, MyMenu Extras){
+        starters = Starters;
+        mains = Mains;
+        desserts = Desserts;
+        drinks = Drinks;
+        extras = Extras;
+    }
+
+    public static void addStarter(String name, double price, double calories, String description, String kitchenNote){
+        starters.addFoodItem(name, price, calories, description, kitchenNote);
     }
 }

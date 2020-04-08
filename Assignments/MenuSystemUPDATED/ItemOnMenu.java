@@ -11,13 +11,9 @@ public class ItemOnMenu implements Serializable {
     private double calorificValue;
     private String description;
     private String kitchenNote;
-    private boolean vegetarian;
 
     Locale locale = new Locale("en", "GB");
     NumberFormat cf = NumberFormat.getCurrencyInstance(locale);
-
-    public ItemOnMenu(){
-    }
 
     public ItemOnMenu(String mName, double mCost, double cValue, String desc, String kNote) {
         mealName = mName;
@@ -31,24 +27,12 @@ public class ItemOnMenu implements Serializable {
         return mealName;
     }
 
-    public void setMealName(String mealName) {
-        this.mealName = mealName;
-    }
-
     public double getMealCost() {
         return mealCost;
     }
 
-    public void setMealCost(double mealCost) {
-        this.mealCost = mealCost;
-    }
-
     public double getCalorificValue() {
         return calorificValue;
-    }
-
-    public void setCalorificValue(double calorificValue) {
-        this.calorificValue = calorificValue;
     }
 
     public String getDescription() {
